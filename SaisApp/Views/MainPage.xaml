@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SaisApp.MainPage"
+             Title="Applicants List">
+
+
+    <Grid RowDefinitions="*,Auto" Padding="10">
+        <!-- Main UI with reduced opacity while loading -->
+            <ScrollView>
+                <VerticalStackLayout x:Name="RootLayout"
+                                 Spacing="10"
+                                 Opacity="0.3"
+                                 IsEnabled="False">
+                    <CollectionView x:Name="ApplicantsListView" IsVisible="False">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Stroke="Gray" Margin="5" Padding="10" StrokeThickness="1" BackgroundColor="#f9f9f9" StrokeShape="RoundRectangle 10">
+                                    <VerticalStackLayout Spacing="4">
+                                        <HorizontalStackLayout Spacing="6">
+                                            <Label Text="{Binding FirstName}" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+                                            <Label Text="{Binding LastName}" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+                                        </HorizontalStackLayout>
+                                        <Label Text="{Binding Age, StringFormat='Age: {0}'}" FontSize="14" TextColor="DarkGray"/>
+                                        <Label Text="{Binding IdNumber, StringFormat='ID: {0}'}" FontSize="14" TextColor="DarkGray"/>
+                                        <HorizontalStackLayout Spacing="20">
+                                            <Label Text="{Binding ApplicantGender.GenderName, StringFormat='Gender: {0}'}" FontSize="14" TextColor="DarkGray"/>
+                                            <Label Text="{Binding County.Name, StringFormat='County: {0}'}" FontSize="14" TextColor="DarkGray"/>
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <!-- Add button pinned to bottom -->
+        <Button Grid.Row="1"
+            Text="Add Applicant"
+            Clicked="OnAddApplicantClicked"
+            HorizontalOptions="Fill"
+            Margin="0,10,0,0"/>
+
+        <!-- Loader overlay -->
+        <ActivityIndicator x:Name="Loader"
+                       IsRunning="True"
+                       IsVisible="True"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Color="DodgerBlue"
+                       HeightRequest="50"
+                       AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+                       AbsoluteLayout.LayoutFlags="PositionProportional"/>
+    </Grid>
+
+
+</ContentPage>
